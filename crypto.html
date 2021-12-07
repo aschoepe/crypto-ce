@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="viewport" content="width=device-width" />
+    <title>AES-GCM</title>
+    <script src="crypto.js" type="text/javascript"></script>
+    <style>
+        body { font-family: Arial, Tahoma, Helvetica, sans-serif; }
+        hr { border-top: 1px solid lightgrey; }
+        .crypted-data.visible>.decrypted { background-color: #ffecb3; }
+    </style>
+</head>
+
+<body>
+    <h3>Web Crypto API &#x2794; AES GCM Algorithm</h3>
+
+    <hr />
+
+    <p>Password: 5ecure/Passw0rd</p>
+
+    <hr />
+
+    <h3>decrypt</h3>
+
+    <p>line 1 group 0 ...</p>
+    <crypted-data algorithm="AES-GCM" group="0" nonce="unwU2YaoB8I5Xw">
+        qcvdLrAsFNPrHI
+        EeNFbNGeeOWGU0
+        pq23u02UGwd1Aw
+    </crypted-data>
+
+    <p>line 2 group 1 ...</p>
+    <crypted-data algorithm="AES-GCM" group="1" nonce="9e7FM8PHGjPonQ">
+        dVq9NYJlKDbkJXVOU
+        XspFGMehhQdmYRL9A1LALaa0g
+    </crypted-data>
+
+    <p>line 3 group 0 ...</p>
+    <crypted-data algorithm="AES-GCM" group="0" nonce="dTe2oVxNnG4btg">
+        aINh0EZxbLlD9wXdCVqlJYojCsDAL6fhzUpJ8LrPVQ
+    </crypted-data>
+
+    <p>line 4 group 1 ...</p>
+    <crypted-data algorithm="AES-GCM" group="1" nonce="KNMGlGrKZMjCUg">
+        qLWFvKvBe
+
+        IoymXGzo22oDZ
+
+        VXVIRkLvYZ
+        BCNm6qNF0A
+    </crypted-data>
+
+    <hr />
+
+    <h3>encrypt</h3>
+
+    <crypted-encoder></crypted-encoder>
+
+    <hr />
+</body>
+
+</html>

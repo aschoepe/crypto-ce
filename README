@@ -1,0 +1,21 @@
+crypto-ce consists of two independent html custom elements
+
+
+crypted-data is a container that contains encrypted data:
+
+- "algorithm" is not needed at the moment, because only AES-GCM is implemented yet
+- "group" combines a group of elements that can be decrypted with the same password at the same time
+- "nonce" is the nonce (base64url encoded) used when the data was encrypted
+- "content" the encrypted data (base64url encoded)
+
+  <crypted-data algorithm="AES-GCM" group="0" nonce="dTe2oVxNnG4btg">
+    aINh0EZxbLlD9wXdCVqlJYojCsDAL6fhzUpJ8LrPVQ
+  </crypted-data>
+
+
+crypted-encoder is an element which can be included on an html-page to encrypt data:
+
+  <crypted-encoder></crypted-encoder>
+
+
+License BSD-3-Clause
