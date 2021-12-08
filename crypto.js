@@ -31,7 +31,7 @@ function CryptedData(elm) {
     let algorithm;
     let encrypted;
     let nonce;
-    let shadow = elm.attachShadow({ mode: 'close' });
+    let shadow = elm.attachShadow({ mode: 'closed' });
 
     function init() {
         let style = document.createElement('style');
