@@ -22,15 +22,15 @@ function CryptedData(elm) {
         'group': {
             get: () => elm.getAttribute('group')
         },
-        'nonce': {
-            get: () => elm.getAttribute('nonce')
+        'salt': {
+            get: () => elm.getAttribute('salt')
         }
     });
 
     const txtDec = new TextDecoder();
     let algorithm;
     let encrypted;
-    let nonce;
+    let salt;
     let shadow = elm.attachShadow({ mode: 'closed' });
 
     function init() {
@@ -73,8 +73,8 @@ function CryptedData(elm) {
             elm.removeAttribute('algorithm');
             encrypted = elm.textContent.replace(/\s*/g, '');
             elm.textContent = '';
-            nonce = elm.nonce;
-            elm.removeAttribute('nonce');
+            salt = elm.salt;
+            elm.removeAttribute('salt');
         });
     }
     init();
@@ -128,7 +128,7 @@ function CryptedData(elm) {
 
         try {
             let decryptedBuffer = await window.crypto.subtle.decrypt(
-                { name: 'AES-GCM', iv: binaryToUint8Array(base64urlDecode(nonce)) },
+                { name: 'AES-GCM', iv: binaryToUint8Array(base64urlDecode(salt)) },
                 aesGcmKey,
                 binaryToUint8Array(base64urlDecode(encrypted))
             );
@@ -215,23 +215,23 @@ function CryptedEncoder(elm) {
         div.classList.add('crypted-encoder');
         div.innerHTML =
             '<div>' +
-            '  <label for="cgPassword">password</label>' +
-            '  <input type="password" id="cgPassword" size="32">' +
+            '  <label for="cePassword">password</label>' +
+            '  <input type="password" id="cePassword" size="32">' +
             '</div>' +
             '<div>' +
-            '  <label for="cgContent">content to encrypt</label>' +
-            '  <textarea id="cgContent" cols="80" rows="4"></textarea>' +
+            '  <label for="ceContent">content to encrypt</label>' +
+            '  <textarea id="ceContent" cols="80" rows="4"></textarea>' +
             '</div>' +
             '<div>' +
             '  <button>encrypt</button>' +
             '</div>' +
             '<div>' +
-            '  <label for="cgNonce">generated nonce</label>' +
-            '  <textarea id="cgNonce" cols="20" rows="1" readonly></textarea>' +
+            '  <label for="ceNonce">generated salt</label>' +
+            '  <textarea id="ceNonce" cols="20" rows="1" readonly></textarea>' +
             '</div>' +
             '<div>' +
-            '  <label for="cgEncrypted">encrypted data</label>' +
-            '  <textarea id="cgEncrypted" cols="80" rows="4" readonly></textarea>' +
+            '  <label for="ceEncrypted">encrypted data</label>' +
+            '  <textarea id="ceEncrypted" cols="80" rows="4" readonly></textarea>' +
             '</div>';
         div.querySelector('button').onclick = encrypt;
         shadow.appendChild(div);
@@ -263,9 +263,9 @@ function CryptedEncoder(elm) {
     }
 
     async function encrypt() {
-        let password = shadow.getElementById('cgPassword').value;
+        let password = shadow.getElementById('cePassword').value;
         let key = base64urlEncode(validateKey(password));
-        let content = shadow.getElementById('cgContent').value;
+        let content = shadow.getElementById('ceContent').value;
 
         const aesGcmKey = await window.crypto.subtle.importKey(
             'jwk',
@@ -282,7 +282,7 @@ function CryptedEncoder(elm) {
         );
         let b64uEncrypted = byteArrayBase64urlEncode(new Uint8Array(encrypted));
 
-        shadow.getElementById('cgNonce').textContent = byteArrayBase64urlEncode(iv);
-        shadow.getElementById('cgEncrypted').innerHTML = b64uEncrypted.match(/.{1,80}/g).join('&#13;&#10;');
+        shadow.getElementById('ceNonce').textContent = byteArrayBase64urlEncode(iv);
+        shadow.getElementById('ceEncrypted').innerHTML = b64uEncrypted.match(/.{1,80}/g).join('&#13;&#10;');
     }
 }
