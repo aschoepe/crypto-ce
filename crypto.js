@@ -37,8 +37,8 @@ function CryptedData(elm) {
         let style = document.createElement('style');
         style.textContent =
             '.crypted-data>.encrypted { display: none; } ' +
-            '.crypted-data>.decrypted { display: none; } ' +
-            '.crypted-data.visible>.decrypted { display: block; padding-top: 5px; padding-bottom: 5px; } ' +
+            '.crypted-data>.decrypted { display: none; padding-top: 5px; padding-bottom: 5px; } ' +
+            '.crypted-data.visible>.decrypted { display: block; } ' +
             '.crypted-data>.show { display: inline-block; } ' +
             '.crypted-data.visible>.show { display: none; } ' +
             '.crypted-data>.hide { display: none; } ' +
@@ -53,7 +53,7 @@ function CryptedData(elm) {
         let div = document.createElement('div');
         div.classList.add('crypted-data');
         div.innerHTML =
-            '<div class="decrypted"></div>' +
+            '<div class="decrypted" part="decrypted"></div>' +
             '<button class="show">&#x1F510;</button>' +
             '<button class="hide">&#x1F512;</button>' +
             '<form class="password">' +
